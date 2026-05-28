@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>She Can Foundation — Empowering Women</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --pink: #D63384;
+      --purple: #6F42C1;
+      --gold: #FFC107;
+      --bg: #FFF8FC;
+      --dark: #2C2C2C;
+      --muted: #666666;
+      --white: #FFFFFF;
+      --gradient: linear-gradient(135deg, #D63384 0%, #6F42C1 100%);
+      --gradient-soft: linear-gradient(135deg, rgba(214,51,132,0.08) 0%, rgba(111,66,193,0.08) 100%);
+      --shadow-sm: 0 4px 16px rgba(214,51,132,0.10);
+      --shadow-md: 0 8px 32px rgba(111,66,193,0.14);
+      --shadow-lg: 0 16px 48px rgba(111,66,193,0.18);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ===== DARK MODE ===== */
+    [data-theme="dark"] {
+      --bg: #17101F;
+      --dark: #F0E8FF;
+      --muted: #B0A0C8;
+      --white: #211530;
+    }
+    [data-theme="dark"] .navbar { background: rgba(23,16,31,0.97) !important; border-bottom: 1px solid rgba(214,51,132,0.18); }
+    [data-theme="dark"] .about-text p, [data-theme="dark"] .careers-list li { color: #C8B8E0; }
+    [data-theme="dark"] .footer { background: #0E0916; }
+    [data-theme="dark"] .impact-card, [data-theme="dark"] .about-card { background: #211530; border-color: rgba(214,51,132,0.18); }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      color: var(--dark);
+      line-height: 1.7;
+      transition: background var(--transition), color var(--transition);
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ===== SCROLL REVEAL ANIMATION ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,248,252,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(214,51,132,0.10);
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    .navbar:hover { box-shadow: var(--shadow-sm); }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo-icon {
+      width: 40px; height: 40px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      color: var(--white);
+      flex-shrink: 0;
+    }
+    .nav-logo-text {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.3px;
+    }
+    .nav-logo-text span { font-weight: 300; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .nav-links a {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--muted);
+      position: relative;
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--gradient);
+      border-radius: 2px;
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--pink); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+
+    .dark-toggle {
+      width: 40px; height: 40px;
+      border: 1.5px solid rgba(214,51,132,0.25);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--pink);
+      background: transparent;
+      transition: all var(--transition);
+    }
+    .dark-toggle:hover {
+      background: var(--gradient);
+      color: #fff;
+      border-color: transparent;
+      transform: rotate(20deg);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 2px;
+      background: var(--pink);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      border: none;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--gradient);
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(214,51,132,0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(214,51,132,0.50);
+    }
+    .btn-primary:active { transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--pink);
+      border: 2px solid var(--pink);
+    }
+    .btn-outline:hover {
+      background: var(--gradient);
+      color: #fff;
+      border-color: transparent;
+      transform: translateY(-3px);
+    }
+
+    /* ===== SECTION COMMONS ===== */
+    section { padding: 96px 5%; }
+    .section-tag {
+      display: inline-block;
+      background: var(--gradient-soft);
+      color: var(--pink);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 6px 18px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+      border: 1px solid rgba(214,51,132,0.15);
+    }
+    .section-title {
+      font-size: clamp(1.75rem, 3.5vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--dark);
+      margin-bottom: 16px;
+    }
+    .section-title span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 580px;
+      line-height: 1.8;
+    }
+    .center { text-align: center; }
+    .center .section-subtitle { margin: 0 auto; }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      min-height: calc(100vh - 72px);
+      padding: 60px 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(214,51,132,0.12) 0%, transparent 70%);
+      pointer-events: none;
+      animation: float-bg 8s ease-in-out infinite;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -150px; left: -150px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(111,66,193,0.10) 0%, transparent 70%);
+      pointer-events: none;
+      animation: float-bg 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes float-bg {
+      0%, 100% { transform: translate(0,0); }
+      50% { transform: translate(30px, -30px); }
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,193,7,0.12);
+      color: #B8860B;
+      border: 1px solid rgba(255,193,7,0.3);
+      padding: 7px 18px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      animation: slide-in 0.8s ease both;
+    }
+    .hero-badge i { color: var(--gold); }
+
+    .hero-title {
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--dark);
+      margin-bottom: 24px;
+      animation: slide-in 0.8s 0.1s ease both;
+    }
+    .hero-title .highlight {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-text {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin-bottom: 36px;
+      line-height: 1.85;
+      animation: slide-in 0.8s 0.2s ease both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: slide-in 0.8s 0.3s ease both;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 48px;
+      animation: slide-in 0.8s 0.4s ease both;
+    }
+    .stat { }
+    .stat-number {
+      font-size: 1.6rem;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero Image */
+    .hero-visual {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-image-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-18px); }
+    }
+    .hero-image-bg {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: 40% 60% 60% 40% / 50% 40% 60% 50%;
+      background: var(--gradient);
+      opacity: 0.12;
+      position: absolute;
+      top: 0; left: 0;
+      animation: morph 8s ease-in-out infinite;
+    }
+    @keyframes morph {
+      0%, 100% { border-radius: 40% 60% 60% 40% / 50% 40% 60% 50%; }
+      33% { border-radius: 60% 40% 40% 60% / 60% 50% 40% 50%; }
+      66% { border-radius: 50% 50% 60% 40% / 40% 60% 50% 50%; }
+    }
+    .hero-image-main {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      border-radius: 40% 60% 60% 40% / 50% 40% 60% 50%;
+      animation: morph 8s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-float-card {
+      position: absolute;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      padding: 12px 18px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--dark);
+      z-index: 2;
+      white-space: nowrap;
+    }
+    .hero-float-card .icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+    .card-1 { bottom: 15%; left: -6%; animation: float-card 7s ease-in-out infinite; }
+    .card-2 { top: 18%; right: -8%; animation: float-card 5s ease-in-out infinite reverse; }
+    @keyframes float-card {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ===== ABOUT SECTION ===== */
+    .about { background: var(--white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 72px;
+      align-items: center;
+      margin-top: 0;
+    }
+    .about-image-area {
+      position: relative;
+    }
+    .about-img-wrap {
+      border-radius: 30px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: var(--gradient);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+      opacity: 0.85;
+    }
+    .about-badge-float {
+      position: absolute;
+      bottom: -24px; right: -24px;
+      background: var(--gradient);
+      color: #fff;
+      border-radius: 20px;
+      padding: 20px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .about-badge-float .num { font-size: 2rem; font-weight: 800; line-height: 1; }
+    .about-badge-float .lbl { font-size: 0.78rem; font-weight: 500; opacity: 0.9; }
+
+    .about-text { padding-left: 0; }
+    .about-text p { color: var(--muted); margin-bottom: 20px; line-height: 1.9; }
+
+    .about-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .about-card {
+      background: var(--bg);
+      border: 1px solid rgba(214,51,132,0.10);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+      transition: all var(--transition);
+    }
+    .about-card:hover {
+      border-color: rgba(214,51,132,0.30);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-sm);
+    }
+    .about-card-icon {
+      font-size: 22px;
+      margin-bottom: 8px;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .about-card h4 { font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+    .about-card p { font-size: 0.82rem; margin-bottom: 0; }
+
+    /* ===== IMPACT / FEATURES SECTION ===== */
+    .impact { background: var(--bg); }
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 28px;
+      margin-top: 56px;
+    }
+    .impact-card {
+      background: var(--white);
+      border: 1px solid rgba(214,51,132,0.08);
+      border-radius: var(--radius);
+      padding: 36px 28px;
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .impact-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 4px;
+      background: var(--gradient);
+      opacity: 0;
+      transition: opacity var(--transition);
+    }
+    .impact-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(214,51,132,0.20);
+    }
+    .impact-card:hover::before { opacity: 1; }
+    .impact-icon {
+      width: 64px; height: 64px;
+      border-radius: 18px;
+      background: var(--gradient-soft);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      margin-bottom: 24px;
+      transition: all var(--transition);
+    }
+    .impact-card:hover .impact-icon {
+      background: var(--gradient);
+    }
+    .impact-card:hover .impact-icon i { color: #fff !important; }
+    .impact-icon i {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transition: all var(--transition);
+    }
+    .impact-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .impact-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .impact-card .learn-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--pink);
+      margin-top: 20px;
+      transition: gap var(--transition);
+    }
+    .impact-card:hover .learn-more { gap: 10px; }
+
+    /* ===== CAREERS SECTION ===== */
+    .careers {
+      background: var(--white);
+      position: relative;
+      overflow: hidden;
+    }
+    .careers::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(111,66,193,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .careers-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .careers-list {
+      margin: 28px 0;
+    }
+    .careers-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(214,51,132,0.08);
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .careers-list li:last-child { border-bottom: none; }
+    .list-icon {
+      width: 36px; height: 36px;
+      min-width: 36px;
+      border-radius: 50%;
+      background: var(--gradient-soft);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+    .list-icon i {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .list-content strong { display: block; font-size: 0.95rem; font-weight: 600; color: var(--dark); margin-bottom: 2px; }
+
+    /* Careers Visual */
+    .careers-visual {
+      position: relative;
+    }
+    .careers-img-wrap {
+      border-radius: 30px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: var(--gradient);
+    }
+    .careers-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      mix-blend-mode: multiply;
+      opacity: 0.85;
+    }
+    .volunteer-badge {
+      position: absolute;
+      top: -20px; left: -20px;
+      background: var(--gold);
+      color: #5a3e00;
+      border-radius: 16px;
+      padding: 16px 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      box-shadow: 0 8px 24px rgba(255,193,7,0.35);
+      line-height: 1.3;
+    }
+    .volunteer-badge span { display: block; font-size: 1.4rem; font-weight: 800; }
+
+    /* ===== FULL WIDTH IMAGE SECTION ===== */
+    .img-section {
+      padding: 0;
+      height: 480px;
+      position: relative;
+      overflow: hidden;
+    }
+    .img-section img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+    }
+    .img-section-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(214,51,132,0.75), rgba(111,66,193,0.65));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 40px 5%;
+    }
+    .img-section-overlay h2 {
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+      max-width: 700px;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .img-section-overlay p {
+      color: rgba(255,255,255,0.88);
+      font-size: 1.05rem;
+      max-width: 520px;
+      line-height: 1.8;
+    }
+
+    /* ===== TESTIMONIALS / QUOTE STRIP ===== */
+    .quote-strip {
+      background: var(--gradient);
+      padding: 60px 5%;
+      text-align: center;
+    }
+    .quote-strip blockquote {
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-weight: 600;
+      color: rgba(255,255,255,0.95);
+      max-width: 720px;
+      margin: 0 auto 16px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+    .quote-strip cite {
+      color: rgba(255,255,255,0.72);
+      font-size: 0.92rem;
+      font-style: normal;
+      font-weight: 500;
+    }
+    .quote-strip .quote-icon {
+      font-size: 3rem;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #1A0F26;
+      color: #c5b4d8;
+      padding: 72px 5% 0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand {}
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .footer-logo-icon {
+      width: 38px; height: 38px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      color: #fff;
+    }
+    .footer-logo-text {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .footer-brand p {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 10px;
+    }
+    .footer-social a {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: #c5b4d8;
+      font-size: 14px;
+      transition: all var(--transition);
+    }
+    .footer-social a:hover {
+      background: var(--gradient);
+      border-color: transparent;
+      color: #fff;
+      transform: translateY(-3px);
+    }
+
+    .footer-col h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+    .footer-col ul li a {
+      font-size: 0.88rem;
+      color: #c5b4d8;
+      transition: color var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .footer-col ul li a::before {
+      content: '›';
+      color: var(--pink);
+      font-size: 1rem;
+      opacity: 0;
+      transition: all var(--transition);
+    }
+    .footer-col ul li a:hover { color: #fff; padding-left: 4px; }
+    .footer-col ul li a:hover::before { opacity: 1; }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.88rem;
+    }
+    .footer-contact-item i {
+      color: var(--pink);
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .footer-bottom {
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p { font-size: 0.84rem; color: rgba(197,180,216,0.65); }
+    .footer-bottom a { color: var(--pink); }
+    .made-with { font-size: 0.82rem; color: rgba(197,180,216,0.5); }
+
+    /* ===== MOBILE NAV ===== */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0;
+      width: 100%;
+      background: rgba(255,248,252,0.98);
+      backdrop-filter: blur(12px);
+      padding: 24px 5%;
+      border-bottom: 1px solid rgba(214,51,132,0.12);
+      z-index: 999;
+      box-shadow: var(--shadow-md);
+    }
+    [data-theme="dark"] .mobile-menu { background: rgba(23,16,31,0.98); }
+    .mobile-menu a {
+      display: block;
+      padding: 12px 0;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--dark);
+      border-bottom: 1px solid rgba(214,51,132,0.08);
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--pink); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .hero-text { max-width: 100%; }
+      .hero-btns { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-visual { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-image-area { max-width: 400px; margin: 0 auto; }
+      .careers-inner { grid-template-columns: 1fr; gap: 40px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 72px 5%; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .impact-grid { grid-template-columns: 1fr; }
+      .about-cards { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .hero-stats { flex-wrap: wrap; gap: 20px; }
+      .img-section { height: 360px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; }
+      .btn { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <a href="#home" class="nav-logo">
+      <div class="nav-logo-icon"><i class="fas fa-heart"></i></div>
+      <div class="nav-logo-text">She Can <span>Foundation</span></div>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#mission">Mission</a></li>
+      <li><a href="#careers">Careers</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon" id="darkIcon"></i>
+      </button>
+      <div class="hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" onclick="closeMobileMenu()">Home</a>
+    <a href="#about" onclick="closeMobileMenu()">About</a>
+    <a href="#mission" onclick="closeMobileMenu()">Mission</a>
+    <a href="#careers" onclick="closeMobileMenu()">Careers</a>
+    <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <i class="fas fa-star"></i>
+        Empowering Women Since 2018
+      </div>
+
+      <h1 class="hero-title">
+        Empowering Women.<br>
+        <span class="highlight">Building Careers.</span><br>
+        Creating Change.
+      </h1>
+
+      <p class="hero-text">
+        She Can Foundation is dedicated to helping women and young girls unlock their full potential through education, mentorship, and meaningful career opportunities — because every woman deserves a chance to lead.
+      </p>
+
+      <div class="hero-btns">
+        <a href="#careers" class="btn btn-primary">
+          <i class="fas fa-rocket"></i>
+          Join Our Mission
+        </a>
+        <a href="#about" class="btn btn-outline">
+          <i class="fas fa-play-circle"></i>
+          Learn More
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">12K+</div>
+          <div class="stat-label">Women Empowered</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">480+</div>
+          <div class="stat-label">Programs Run</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">35+</div>
+          <div class="stat-label">Cities Reached</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-image-wrap">
+        <div class="hero-image-bg"></div>
+        <img
+          class="hero-image-main"
+          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80"
+          alt="Empowered woman professional"
+          loading="eager"
+        />
+        <!-- Float Cards -->
+        <div class="hero-float-card card-1">
+          <div class="icon" style="background: rgba(214,51,132,0.12);">
+            <i class="fas fa-graduation-cap" style="color: var(--pink);"></i>
+          </div>
+          200+ Scholarships Given
+        </div>
+        <div class="hero-float-card card-2">
+          <div class="icon" style="background: rgba(111,66,193,0.12);">
+            <i class="fas fa-briefcase" style="color: var(--purple);"></i>
+          </div>
+          1,200+ Jobs Placed
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about" id="about">
+    <div class="about-grid">
+      <div class="about-image-area reveal-left">
+        <div class="about-img-wrap">
+          <img
+            class="about-img"
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80"
+            alt="Women working together"
+            loading="lazy"
+          />
+        </div>
+        <div class="about-badge-float">
+          <div class="num">8+</div>
+          <div class="lbl">Years of Impact</div>
+        </div>
+      </div>
+
+      <div class="about-text reveal-right">
+        <span class="section-tag">About Us</span>
+        <h2 class="section-title">About She Can <span>Foundation</span></h2>
+        <p>
+          She Can Foundation is a non-profit organization on a mission to shatter the barriers that hold women back from achieving their dreams. We believe that when a woman is educated, empowered, and supported — she transforms not just her own life, but her entire community.
+        </p>
+        <p>
+          From rural villages to urban communities, we bring career guidance, digital literacy, mentorship, and leadership training directly to women who need it most. Every programme we run is designed with one goal: to unlock the infinite potential within every woman.
+        </p>
+
+        <div class="about-cards">
+          <div class="about-card">
+            <div class="about-card-icon"><i class="fas fa-graduation-cap"></i></div>
+            <h4>Education Support</h4>
+            <p>Scholarships, e-learning, and digital resources.</p>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon"><i class="fas fa-briefcase"></i></div>
+            <h4>Career Opportunities</h4>
+            <p>Job placement, internships, and mentorship.</p>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon"><i class="fas fa-users"></i></div>
+            <h4>Community Building</h4>
+            <p>Peer networks, support circles, and events.</p>
+          </div>
+          <div class="about-card">
+            <div class="about-card-icon"><i class="fas fa-chart-line"></i></div>
+            <h4>Leadership Growth</h4>
+            <p>Workshops, coaching, and leadership labs.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IMPACT / FEATURES ===== -->
+  <section class="impact" id="mission">
+    <div class="center reveal">
+      <span class="section-tag">Our Mission</span>
+      <h2 class="section-title">Programmes That <span>Transform Lives</span></h2>
+      <p class="section-subtitle">
+        Every initiative we run is purposefully designed to uplift women through practical skills, knowledge, and opportunity.
+      </p>
+    </div>
+
+    <div class="impact-grid">
+      <div class="impact-card reveal delay-1">
+        <div class="impact-icon">
+          <i class="fas fa-compass" style="font-size: 26px;"></i>
+        </div>
+        <h3>Career Guidance</h3>
+        <p>One-on-one mentorship, resume workshops, and interview prep to help women land their dream roles with confidence.</p>
+        <span class="learn-more">Explore <i class="fas fa-arrow-right"></i></span>
+      </div>
+
+      <div class="impact-card reveal delay-2">
+        <div class="impact-icon">
+          <i class="fas fa-laptop-code" style="font-size: 26px;"></i>
+        </div>
+        <h3>Digital Education</h3>
+        <p>Free online courses in coding, digital marketing, and data literacy — skills that open doors in today's economy.</p>
+        <span class="learn-more">Explore <i class="fas fa-arrow-right"></i></span>
+      </div>
+
+      <div class="impact-card reveal delay-3">
+        <div class="impact-icon">
+          <i class="fas fa-crown" style="font-size: 26px;"></i>
+        </div>
+        <h3>Leadership Programs</h3>
+        <p>Intensive bootcamps and workshops that build the confidence, communication, and decision-making skills great leaders need.</p>
+        <span class="learn-more">Explore <i class="fas fa-arrow-right"></i></span>
+      </div>
+
+      <div class="impact-card reveal delay-4">
+        <div class="impact-icon">
+          <i class="fas fa-tools" style="font-size: 26px;"></i>
+        </div>
+        <h3>Skill Development</h3>
+        <p>From entrepreneurship to public speaking, our skill labs equip women with practical abilities for real-world success.</p>
+        <span class="learn-more">Explore <i class="fas fa-arrow-right"></i></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CAREERS ===== -->
+  <section class="careers" id="careers">
+    <div class="careers-inner">
+      <div class="reveal-left">
+        <span class="section-tag">Opportunities</span>
+        <h2 class="section-title">Building Careers for a <span>Better Tomorrow</span></h2>
+        <p style="color: var(--muted); margin-bottom: 0; line-height: 1.85;">
+          Whether you're a student discovering your path or a professional ready to give back — She Can Foundation has a place for you. Grow. Lead. Inspire.
+        </p>
+
+        <ul class="careers-list">
+          <li>
+            <div class="list-icon"><i class="fas fa-seedling"></i></div>
+            <div class="list-content">
+              <strong>Internship Opportunities</strong>
+              Gain real-world experience with mentorship from industry professionals in a supportive environment.
+            </div>
+          </li>
+          <li>
+            <div class="list-icon"><i class="fas fa-lightbulb"></i></div>
+            <div class="list-content">
+              <strong>Inspiring Learning Environment</strong>
+              Access workshops, e-libraries, and peer learning circles designed to spark curiosity and growth.
+            </div>
+          </li>
+          <li>
+            <div class="list-icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="list-content">
+              <strong>Confidence Building</strong>
+              Through structured programs, we help every woman discover her strengths and voice.
+            </div>
+          </li>
+          <li>
+            <div class="list-icon"><i class="fas fa-clock"></i></div>
+            <div class="list-content">
+              <strong>Flexible for All Women</strong>
+              Part-time, remote, and hybrid options make it easy to grow without sacrificing your existing commitments.
+            </div>
+          </li>
+        </ul>
+
+        <a href="#contact" class="btn btn-primary">
+          <i class="fas fa-hands-helping"></i>
+          Become a Volunteer
+        </a>
+      </div>
+
+      <div class="careers-visual reveal-right">
+        <div class="volunteer-badge">
+          <span>300+</span>
+          Active Volunteers
+        </div>
+        <div class="careers-img-wrap">
+          <img
+            class="careers-img"
+            src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=600&q=80"
+            alt="Women career growth"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FULL-WIDTH IMAGE SECTION ===== -->
+  <div class="img-section">
+    <img
+      src="https://images.unsplash.com/photo-1529539795054-3c162aab037a?w=1400&q=80"
+      alt="Women empowerment team"
+      loading="lazy"
+    />
+    <div class="img-section-overlay reveal">
+      <h2>"The world needs more women who dare to lead, dream, and defy limits."</h2>
+      <p>Join thousands of women who have found their voice, their skills, and their future through She Can Foundation.</p>
+    </div>
+  </div>
+
+  <!-- ===== QUOTE STRIP ===== -->
+  <div class="quote-strip">
+    <i class="fas fa-quote-left quote-icon"></i>
+    <blockquote>
+      "Educate a woman, and you educate a nation. Empower a woman, and you change the world."
+    </blockquote>
+    <cite>— She Can Foundation Core Belief</cite>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="contact">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon"><i class="fas fa-heart"></i></div>
+          <div class="footer-logo-text">She Can Foundation</div>
+        </div>
+        <p>
+          A non-profit empowering women through education, career support, and leadership — one life at a time.
+        </p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#mission">Our Mission</a></li>
+          <li><a href="#careers">Careers</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Programs -->
+      <div class="footer-col">
+        <h4>Programmes</h4>
+        <ul>
+          <li><a href="#">Career Guidance</a></li>
+          <li><a href="#">Digital Education</a></li>
+          <li><a href="#">Leadership Labs</a></li>
+          <li><a href="#">Skill Development</a></li>
+          <li><a href="#">Volunteer</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="footer-col" id="contact-info">
+        <h4>Get In Touch</h4>
+        <div class="footer-contact-item">
+          <i class="fas fa-map-marker-alt"></i>
+          <span>42 Hope Street, Mumbai,<br>Maharashtra 400001, India</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-envelope"></i>
+          <span>hello@shecanfoundation.org</span>
+        </div>
+        <div class="footer-contact-item">
+          <i class="fas fa-phone"></i>
+          <span>+91 98765 43210</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 <a href="#">She Can Foundation</a>. All Rights Reserved.</p>
+      <p class="made-with">Made with <i class="fas fa-heart" style="color: var(--pink);"></i> for women everywhere</p>
+    </div>
+  </footer>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    /* Dark Mode Toggle */
+    const darkToggle = document.getElementById('darkToggle');
+    const darkIcon = document.getElementById('darkIcon');
+    const body = document.body;
+
+    const savedTheme = localStorage.getItem('scf-theme') || 'light';
+    if (savedTheme === 'dark') applyDark();
+
+    darkToggle.addEventListener('click', () => {
+      const isDark = body.getAttribute('data-theme') === 'dark';
+      if (isDark) {
+        body.removeAttribute('data-theme');
+        darkIcon.className = 'fas fa-moon';
+        localStorage.setItem('scf-theme', 'light');
+      } else {
+        applyDark();
+        localStorage.setItem('scf-theme', 'dark');
+      }
+    });
+
+    function applyDark() {
+      body.setAttribute('data-theme', 'dark');
+      darkIcon.className = 'fas fa-sun';
+    }
+
+    /* Mobile Menu */
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    let menuOpen = false;
+
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.style.display = menuOpen ? 'block' : 'none';
+    });
+
+    function closeMobileMenu() {
+      menuOpen = false;
+      mobileMenu.style.display = 'none';
+    }
+
+    /* Scroll Reveal */
+    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    /* Navbar shadow on scroll */
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      navbar.style.boxShadow = window.scrollY > 40 ? '0 4px 24px rgba(214,51,132,0.12)' : '';
+    });
+  </script>
+
+</body>
+</html>
